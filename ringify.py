@@ -41,9 +41,9 @@ i = 0
 for i in range(0, n):
     cond = np.argwhere((R >= R1) & (R < R2)).flatten()
     sum_mass = np.sum(mass[cond])
-    density = sum_mass / (np.pi*(R2 ** 2 - R1 ** 2))
+    density = sum_mass / (np.pi*(R2 ** 2 - R1 ** 2)) * 10000000000
     density_array.append(density)
-    print('ring ', i, ':', density, 'sun_mass / kparsec')
+    print('ring ', i, ':', density, 'sun_mass e^10 kpa^-2')
     i = i + 1
 # move boundaries
     R1 = R2
@@ -51,15 +51,15 @@ for i in range(0, n):
 
 
 # plot!
-x_axis = np.arange(n)
+x_axis = np.arange(n) * step
 y_axis = np.array(density_array)
 
 fig, ax = plt.subplots()
 ax.plot(x_axis, y_axis)
 
-plt.title("Density along concentric rings of the Disk")
-plt.xlabel("Ring")
-plt.ylabel("Density [Msun / kparsec]")
+plt.title("Density along concentric rings of the Galactic Disk")
+plt.xlabel("Ring Radius [kpa]")
+plt.ylabel("Density [Msun e^10 kpa^(-2)]")
 plt.grid()
 
 plt.show()
