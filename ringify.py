@@ -53,6 +53,13 @@ for i in range(0, n):
 # plot!
 x_axis = np.arange(n)
 y_axis = np.array(density_array)
+
 fig, ax = plt.subplots()
 ax.plot(x_axis, y_axis)
+
+plt.title("Density along concentric rings of the Disk")
+plt.xlabel("Ring")
+plt.ylabel("Density [Msun / kparsec]")
+plt.grid()
+
 plt.show()
