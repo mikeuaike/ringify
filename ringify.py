@@ -61,5 +61,6 @@ plt.title("Density along concentric rings of the Galactic Disk")
 plt.xlabel("Ring Radius [kpa]")
 plt.ylabel("Density [Msun e^10 kpa^(-2)]")
 plt.grid()
-
+plt.xscale("log")
+plt.yscale("log")
 plt.show()
