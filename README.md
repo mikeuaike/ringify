@@ -14,7 +14,7 @@ python3 ringify.py <insert_your_snapshot>
 ###### In case you don't have any snapshots, the file "gal_test" is the one i've been using for testing purposes.
 
 ## WHAT SHOULD HAPPEN?
-> The mass density of each ring should appear on your screen, just as a cute graphic pops up! 
+> The mass density of each ring should appear on your terminal, just as a cute graphic pops up and gets saved as a png!
 
 
 ## WHAT DO YOU NEED TO RUN IT:
@@ -29,11 +29,10 @@ In case you never heard of this type of simulations, there's a fantastic guide m
 
 ## Future Changes:
 
-- The number of rings should be an argument of the script. Currently, to change it, you need to do it manually in the code
-- The graphic needs A LOT of work (better scaling, axis names, correct ticks, etc)
-- A second, more "visual", type of graphic
-- Another type of graphic, where you could see the theoretical distribution and compare it to the calculated one
-- (MAYBE) a save graph's function, controllable via input argument
+- (MAYBE) The number of rings should be an argument of the script. Currently, to change it, you need to do it manually in the code
+- The graphic needs some work (better scaling, axis names, correct ticks, etc)
+- (MAYBE) A second, more "visual", type of graphic
+- Show the theoretical curve of density along the radius, so we can see if it matches with the numbers we got from the simulations
 
 
 
