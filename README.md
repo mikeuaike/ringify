@@ -1,7 +1,7 @@
 # ringify
 Python script for galaxy density profiling!
 
-## Are you tired of not knowing the mass distribution of your galaxy?
+## Are you tired of not knowing the mass distribution along the disk of your galaxy?
 Well, fear no more! Ringify can spot the center of your galaxy, then slice successive rings from it, then checking they're density!
 
 ###### There's a lot of work left, and i may stop updating it at any time (it's just the first step to a much much greater work on galactic simulations).
