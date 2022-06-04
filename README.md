@@ -32,7 +32,6 @@ In case you never heard of this type of simulations, there's a fantastic guide m
 - (MAYBE) The number of rings should be an argument of the script. Currently, to change it, you need to do it manually in the code
 - The graphic needs some work (better scaling, axis names, correct ticks, etc)
 - (MAYBE) A second, more "visual", type of graphic
-- Show the theoretical curve of density along the radius, so we can see if it matches with the numbers we got from the simulations
 
 
 
