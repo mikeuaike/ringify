@@ -14,6 +14,7 @@ _, mass = s.getData('disk', 'mass')
 x = pos[0::3]
 y = pos[1::3]
 
+mass = mass * 1e10
 # Number of Bodies
 n_body = np.argmax(id)
 
@@ -31,43 +32,46 @@ step = np.sqrt((x[np.argmax(x)]) ** 2 + (y[np.argmax(y)]) ** 2) / n
 R1 = np.sqrt(x_center**2 + y_center**2)
 R2 = R1 + step
 
-print('Step: ', step, ' kpa')
+print('Step: ', step, ' kpc')
 density_array = []
 theoric_array = []
 
 print('Center: ', 'x = ', x_center, 'y = ', y_center)
 # Density Iteration
-h = 5
-m = 3.5
 i = 0
 for i in range(0, n):
     cond = np.argwhere((R >= R1) & (R < R2)).flatten()
     sum_mass = np.sum(mass[cond])
-    density = sum_mass / (np.pi*(R2 ** 2 - R1 ** 2)) * 10000000000
+    # density = sum_mass / (np.pi*(R2 ** 2 - R1 ** 2))
+    density = sum_mass / (np.pi * ((R1 + R2) / 2) ** 2)
     density_array.append(density)
-# Theoretical Curve
-    theor_density = ((m / (np.pi * (h ** 2))) * np.exp((-i * step) / h)) * 10000000000 / 2
-    theoric_array.append(theor_density)
-    print('ring ', i, ':', density, 'sun_mass e^10 kpa^-2')
+    print('ring ', i, ':', density, 'sun_mass 10^10 kpc^-2')
 
     i = i + 1
 # move boundaries
     R1 = R2
     R2 = R2 + step
 
+# Theoretical Curve
+
+h = 5
+m = 3.5 * 1e10
+
+x_linspace = np.linspace(0, 100)
+theor_density = ((m / (np.pi * (h ** 2))) * np.exp((-x_linspace * step) / h)) / 2
 
 # plot!
+#
 x_axis = np.arange(n) * step
 y_axis = np.array(density_array)
-y_axis2 = np.array(theoric_array)
 fig, ax = plt.subplots()
 
 ax.scatter(x_axis, y_axis, color='magenta')
-ax.plot(x_axis, y_axis2, color='blue')
+ax.plot(x_linspace, theor_density, color='blue')
 
 plt.title("Density along Galactic Disk Radius")
-plt.xlabel("Radius [kpa]")
-plt.ylabel("Density [Msun e^10 kpa^(-2)]")
+plt.xlabel("Radius [${\mathrm{kpc}}$]")
+plt.ylabel("Density [$10^{10}{\mathrm{M}}_{\odot}$ ${\mathrm{kpc}}^{-2}$]")
 plt.grid()
 plt.xscale("log")
 plt.yscale("log")
