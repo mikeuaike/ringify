@@ -11,7 +11,7 @@ Well, fear no more! Ringify can spot the center of your galaxy, then slice succe
 ```
 python3 ringify.py <insert_your_snapshot>
 ```
-###### In case you don't have any snapshots, the file "gal_test" is the one i've been using for testing purposes.
+###### In case you don't have any snapshots, the file "test_snapshot" is the one i've been using for testing purposes.
 
 ## WHAT SHOULD HAPPEN?
 > The mass density of each ring should appear on your terminal, just as a cute graphic pops up and gets saved as a png!
@@ -30,7 +30,6 @@ In case you never heard of this type of simulations, there's a fantastic guide m
 ## Future Changes:
 
 - (MAYBE) The number of rings should be an argument of the script. Currently, to change it, you need to do it manually in the code
-- The graphic needs some work (better scaling, axis names, correct ticks, etc)
 - (MAYBE) A second, more "visual", type of graphic
 
 
