@@ -14,6 +14,7 @@ _, mass = s.getData('disk', 'mass')
 nread = s.getData('ndisk')
 x = pos[0::3]
 y = pos[1::3]
+z = pos[2::3]
 
 mass = mass * 1e10
 
@@ -21,8 +22,15 @@ mass = mass * 1e10
 n_body = nread[1]
 
 # Find Center:
-x_center = np.sum(x[0:(n_body-1)]) / n_body
-y_center = np.sum(y[0:(n_body-1)]) / n_body
+x_com = np.sum(mass*x) / np.sum(mass)
+y_com = np.sum(mass*y) / np.sum(mass)
+z_com = np.sum(mass*z) / np.sum(mass)
+
+# Array Shift:
+for i in range(n_body-1):
+    x[i] = x[i] - x_com
+    y[i] = y[i] - y_com
+    z[i] = z[i] - z_com
 
 # Number of Rings
 n = 25
@@ -31,14 +39,14 @@ R = np.sqrt(x**2 + y**2)
 step = np.sqrt((x[np.argmax(x)]) ** 2 + (y[np.argmax(y)]) ** 2) / n
 
 # Initial Boundaries
-R1 = np.sqrt(x_center**2 + y_center**2)
+R1 = np.sqrt(x_com**2 + y_com**2)
 R2 = R1 + step
 
 print('Step: ', step, ' kpc')
 density_array = []
 theoric_array = []
 
-print('Center: ', 'x = ', x_center, 'y = ', y_center)
+print('Center: ', 'x = ', x_com, 'y = ', y_com)
 # Density Iteration
 i = 0
 for i in range(0, n):
@@ -67,8 +75,8 @@ x_axis = np.arange(n) * step
 y_axis = np.array(density_array)
 fig, ax = plt.subplots()
 
-ax.scatter(x_axis, y_axis, color='magenta')
-ax.plot(x_linspace, theor_density, color='blue')
+ax.scatter(x_axis, y_axis, label='Densities from Snapshot', color='magenta')
+ax.plot(x_linspace, theor_density, label='Analytic Curve of Density', color='blue')
 
 plt.title("Density along Galactic Disk Radius")
 plt.xlabel("Radius [${\mathrm{kpc}}$]")
@@ -76,6 +84,7 @@ plt.ylabel("Density [$10^{10}{\mathrm{M}}_{\odot}$ ${\mathrm{kpc}}^{-2}$]")
 plt.grid()
 plt.xscale("log")
 plt.yscale("log")
+plt.legend()
 
 aux = (argv[1], 'DiskDensityProfile')
 name = "_".join(aux)
