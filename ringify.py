@@ -11,16 +11,18 @@ s.nextFrame()
 _, pos = s.getData('disk', 'pos')
 _, id = s.getData('disk', 'id')
 _, mass = s.getData('disk', 'mass')
+nread = s.getData('ndisk')
 x = pos[0::3]
 y = pos[1::3]
 
 mass = mass * 1e10
+
 # Number of Bodies
-n_body = np.argmax(id)
+n_body = nread[1]
 
 # Find Center:
-x_center = np.sum(x[0:9999]) / n_body
-y_center = np.sum(y[0:9999]) / n_body
+x_center = np.sum(x[0:(n_body-1)]) / n_body
+y_center = np.sum(y[0:(n_body-1)]) / n_body
 
 # Number of Rings
 n = 25
@@ -40,10 +42,9 @@ print('Center: ', 'x = ', x_center, 'y = ', y_center)
 # Density Iteration
 i = 0
 for i in range(0, n):
-    cond = np.argwhere((R >= R1) & (R < R2)).flatten()
+    cond = np.argwhere((R > R1) & (R < R2)).flatten()
     sum_mass = np.sum(mass[cond])
-    # density = sum_mass / (np.pi*(R2 ** 2 - R1 ** 2))
-    density = sum_mass / (np.pi * ((R1 + R2) / 2) ** 2)
+    density = sum_mass / (np.pi*(R2 ** 2 - R1 ** 2))
     density_array.append(density)
     print('ring ', i, ':', density, 'sun_mass 10^10 kpc^-2')
 
@@ -54,14 +55,14 @@ for i in range(0, n):
 
 # Theoretical Curve
 
-h = 5
-m = 3.5 * 1e10
+h = 3.5
+m = 5 * 1e10
 
-x_linspace = np.linspace(0, 100)
-theor_density = ((m / (np.pi * (h ** 2))) * np.exp((-x_linspace * step) / h)) / 2
+x_linspace = np.linspace(0, n*step, n)
+theor_density = ((m / (np.pi * (h ** 2))) * np.exp((-x_linspace) / h)) / 2
 
 # plot!
-#
+
 x_axis = np.arange(n) * step
 y_axis = np.array(density_array)
 fig, ax = plt.subplots()
