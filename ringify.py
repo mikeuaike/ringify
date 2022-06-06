@@ -27,10 +27,9 @@ y_com = np.sum(mass*y) / np.sum(mass)
 z_com = np.sum(mass*z) / np.sum(mass)
 
 # Array Shift:
-for i in range(n_body-1):
-    x[i] = x[i] - x_com
-    y[i] = y[i] - y_com
-    z[i] = z[i] - z_com
+x = x - x_com
+y = y - y_com
+z = z - z_com
 
 # Number of Rings
 n = 25
@@ -45,6 +44,7 @@ R2 = R1 + step
 print('Step: ', step, ' kpc')
 density_array = []
 theoric_array = []
+radius_array = []
 
 print('Center: ', 'x = ', x_com, 'y = ', y_com)
 # Density Iteration
@@ -54,6 +54,7 @@ for i in range(0, n):
     sum_mass = np.sum(mass[cond])
     density = sum_mass / (np.pi*(R2 ** 2 - R1 ** 2))
     density_array.append(density)
+    radius_array.append((R1 + R2) / 2)
     print('ring ', i, ':', density, 'sun_mass 10^10 kpc^-2')
 
     i = i + 1
@@ -71,7 +72,8 @@ theor_density = ((m / (np.pi * (h ** 2))) * np.exp((-x_linspace) / h)) / 2
 
 # plot!
 
-x_axis = np.arange(n) * step
+# x_axis = np.arange(n) * step
+x_axis = np.array(radius_array)
 y_axis = np.array(density_array)
 fig, ax = plt.subplots()
 
@@ -80,7 +82,7 @@ ax.plot(x_linspace, theor_density, label='Analytic Curve of Density', color='blu
 
 plt.title("Density along Galactic Disk Radius")
 plt.xlabel("Radius [${\mathrm{kpc}}$]")
-plt.ylabel("Density [$10^{10}{\mathrm{M}}_{\odot}$ ${\mathrm{kpc}}^{-2}$]")
+plt.ylabel("Density [${\mathrm{M}}_{\odot}$ ${\mathrm{kpc}}^{-2}$]")
 plt.grid()
 plt.xscale("log")
 plt.yscale("log")
